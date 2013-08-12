@@ -1,0 +1,5 @@
+fixtures:
+  repositories:
+    repoutil-fixtures: "git://github.com/ptomulik/puppet-repoutil-fixtures.git"
+  symlinks:
+    repoutil: "#{source_dir}"
