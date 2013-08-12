@@ -16,7 +16,7 @@ describe "Puppet::Util.repoutil(:aptitude)" do
   repo = Puppet::Util::RepoUtils.repoutil(:aptitude)
 
 
-  context "using fixture files apt-cache-*.tar.gz" do
+  context "using fixture files aptitude-show.txt.gz and apt-cache-policy.txt.gz" do
     dir = File.join(File.dirname(__FILE__),'..','..','..','..','fixtures','modules', 'repoutil-fixtures','files')
     repo = Puppet::Util::RepoUtils.repoutil(:apt)
     Zlib::GzipReader.open(File.join(dir, "aptitude-show.txt.gz")) { |gz| 

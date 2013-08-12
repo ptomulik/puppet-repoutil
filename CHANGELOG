@@ -1,2 +1,3 @@
 2013-07-12 Pawel Tomulik <ptomulik@meil.pw.edu.pl>
+  * added Puppet::Error to the list of allowed exceptions in repoutil_spec.rb
   * initial commit

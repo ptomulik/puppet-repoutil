@@ -107,7 +107,7 @@ describe "Puppet::Util::RepoUtil" do
                 method.call
               rescue NotImplementedError 
                 fail "#{repo}.#{name} is not implemented"
-              rescue ArgumentError, Puppet::ExecutionFailure
+              rescue ArgumentError, Puppet::ExecutionFailure, Puppet::Error
                 # pass
               end
             end
