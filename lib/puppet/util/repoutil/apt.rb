@@ -47,16 +47,16 @@ module Puppet::Util
         candidates = {}
         package = nil
         output.each_line do |line|
-          line.match(/^(#{package_prefix_regexp}):\s*$/) { |m| 
+          if (m = line.match(/^(#{package_name_regexp}):\s*$/))
             package = m.captures[0] 
-          }
-          line.match(/^\s+Candidate:\s*(\S+)\s*$/) { |m|
+          end
+          if (m = line.match(/^\s+Candidate:\s*(\S+)\s*$/)) 
             candidate = m.captures[0]
             if package and candidate and (not candidate.match(/^\(none\)$/)) 
               candidates[package] = candidate
               package = nil
             end
-          }
+          end
         end
         candidates_cache.merge!(candidates)
         candidates
