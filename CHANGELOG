@@ -1,4 +1,5 @@
 2013-07-12 Pawel Tomulik <ptomulik@meil.pw.edu.pl>
+  * release 0.1.1
   * fixed bug caused by usage of Regexp.match() { .. block .. }, blocks are not
     supported (ignored) by Regexp.match() in ruby<=1.8
   * added Puppet::Error to the list of allowed exceptions in repoutil_spec.rb
