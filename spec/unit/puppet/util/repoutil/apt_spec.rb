@@ -17,8 +17,8 @@ describe "Puppet::Util.repoutil(:apt)" do
 
   context "package_name_regexp" do
     re = repo.package_name_regexp
-    [ '00', '0a', 'a0', 'aa', 
-      '0.', 'a.', '0+', 'a+', '0-', 'a-', 
+    [ '00', '0a', 'a0', 'aa',
+      '0.', 'a.', '0+', 'a+', '0-', 'a-',
       'apache2', 'addres.freamework', 'anjuta-dbg'
     ].each do |str|
       it "should match '#{str}'" do
@@ -30,15 +30,15 @@ describe "Puppet::Util.repoutil(:apt)" do
 
       '0A', 'aA', 'AA',
 
-      '-a', '+a', '_a', '.a', 
+      '-a', '+a', '_a', '.a',
 
-      'ab_cd', 
+      'ab_cd',
 
       'ab cd', 'ab_cd', 'ab`cd', 'ab!cd', 'ab@cd', 'ab#cd', 'ab$cd', 'ab%cd',
       'ab^cd', 'ab&cd', 'ab*cd', 'ab(cd', 'ab)cd', 'ab)cd', 'ab{cd', 'ab}cd',
       'ab[cd', 'ab]cd', 'ab:cd', 'ab;cd', 'ab"cd', 'ab\'cd', 'ab|cd','ab\\cd',
-      'ab<cd', 'ab,cd', 'ab>cd', 'ab?cd', 'ab/cd', 
-      
+      'ab<cd', 'ab,cd', 'ab>cd', 'ab?cd', 'ab/cd',
+
     ].each do |str|
       it "should not match '#{str}'" do
         str.match(/^#{re}$/).should be_nil
@@ -49,8 +49,8 @@ describe "Puppet::Util.repoutil(:apt)" do
   context "package_prefix_regexp" do
     re = repo.package_prefix_regexp
     [ '', '0', 'a',
-      '00', '0a', 'a0', 'aa', 
-      '0.', 'a.', '0+', 'a+', '0-', 'a-', 
+      '00', '0a', 'a0', 'aa',
+      '0.', 'a.', '0+', 'a+', '0-', 'a-',
       'apt', 'p4', 'apache2'
     ].each do |str|
       it "should match '#{str}'" do
@@ -58,16 +58,16 @@ describe "Puppet::Util.repoutil(:apt)" do
       end
     end
 
-    [ ' ', '  ', 
+    [ ' ', '  ',
       'A',
       '0A', 'aA', 'AA',
 
-      '-a', '+a', '_a', '.a', 
+      '-a', '+a', '_a', '.a',
 
       'ab cd', 'ab_cd', 'ab`cd', 'ab!cd', 'ab@cd', 'ab#cd', 'ab$cd', 'ab%cd',
       'ab^cd', 'ab&cd', 'ab*cd', 'ab(cd', 'ab)cd', 'ab)cd', 'ab{cd', 'ab}cd',
       'ab[cd', 'ab]cd', 'ab:cd', 'ab;cd', 'ab"cd', 'ab\'cd', 'ab|cd','ab\\cd',
-      'ab<cd', 'ab,cd', 'ab>cd', 'ab?cd', 'ab/cd', 
+      'ab<cd', 'ab,cd', 'ab>cd', 'ab?cd', 'ab/cd',
     ].each do |str|
       it "should not match '#{str}'" do
         str.match(/^#{re}$/).should be_nil
@@ -104,10 +104,10 @@ describe "Puppet::Util.repoutil(:apt)" do
   context "using fixture files apt-cache-*.txt.gz" do
     dir = File.join(File.dirname(__FILE__),'..','..','..','..','fixtures','modules', 'repoutil-fixtures','files')
     repo = Puppet::Util::RepoUtils.repoutil(:apt)
-    Zlib::GzipReader.open(File.join(dir, "apt-cache-show.txt.gz")) { |gz| 
+    Zlib::GzipReader.open(File.join(dir, "apt-cache-show.txt.gz")) { |gz|
       repo.stubs(:aptcache).with('-q=2', '-a', 'show', '^').returns(gz.read)
     }
-    Zlib::GzipReader.open(File.join(dir, "apt-cache-policy.txt.gz")) { |gz| 
+    Zlib::GzipReader.open(File.join(dir, "apt-cache-policy.txt.gz")) { |gz|
       repo.stubs(:aptcache).with('-q=2', '-a', 'policy', '^').returns(gz.read)
     }
     repo.stubs(:aptcache).with('-q=2', '-a', 'show', '^nonexistent').returns("\n")
