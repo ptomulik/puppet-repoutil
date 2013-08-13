@@ -231,28 +231,82 @@ module Puppet::Util
       @@repoutilloader
     end
 
+    def self.collective_query(opname, subjects, utils)
+      opname = opname.intern
+      subjects = [ subjects ] if not subjects.is_a?(Array)
+      utils = utils.map { |u| u.respond_to?(opname) ? u : repoutil(u.intern) }
+      hash = Hash[ utils.map { |u|
+        [ 
+          u.name, Hash[ subjects.map { |p| 
+            [p, u.method(opname).call(p)] 
+          }.reject{ |p, r| r.nil? } ] 
+        ]
+      }]
+    end
+
+    def self.collective_search_hash(opname, filters, utils)
+      opname = opname.intern
+      filters = [ filters ] if not filters.is_a?(Array)
+      utils = utils.map { |u| u.respond_to?(opname) ? u : repoutil(u.intern) }
+
+      hash = {}
+      utils.each do |u|
+        hash[u.name] ||= {}
+        filters.each do |f|
+          hash[u.name].merge!( u.method(opname).call(f) )
+        end
+      end
+      hash
+    end
+
+    def self.collective_search_array(opname, filters, utils)
+      opname = opname.intern
+      filters = [ filters ] if not filters.is_a?(Array)
+      utils = utils.map { |u| u.respond_to?(opname) ? u : repoutil(u.intern) }
+
+      hash = {}
+      utils.each do |u|
+        hash[u.name] ||= []
+        filters.each do |f|
+          hash[u.name] += u.method(opname).call(f)
+        end
+      end
+      hash
+    end
+
     # TODO: write docs for Puppet::Util::RepoUtils.package_records
     def self.package_records(packages, utils = suitablerepoutils)
-      packages = [ packages ] if not packages.is_a?(Array)
-      hash = Hash[ utils.map { |u|
-        [ u.name, Hash[ packages.map { |p| [p, u.package_records(p)] }] ]
-      }]
+      collective_query(:package_records, packages, utils)
     end
 
     # TODO: write docs for Puppet::Util::RepoUtils.package_versions
     def self.package_versions(packages, utils = suitablerepoutils)
-      packages = [ packages ] if not packages.is_a?(Array)
-      hash = Hash[ utils.map { |u|
-        [ u.name, Hash[ packages.map { |p| [p, u.package_versions(p)] }] ]
-      }]
+      collective_query(:package_versions, packages, utils)
     end
 
     # TODO: write docs for Puppet::Util::RepoUtils.package_candidates
     def self.package_candidates(packages, utils = suitablerepoutils)
-      packages = [ packages ] if not packages.is_a?(Array)
-      hash = Hash[ utils.map { |u|
-        [ u.name, Hash[ packages.map { |p| [p, u.package_candidate(p)] }] ]
-      }]
+      collective_query(:package_candidates, packages, utils)
+    end
+
+    # TODO: write docs for Puppet::Util::RepoUtils.package_candidates
+    def self.packages_with_prefixes(prefixes, utils = suitablerepoutils)
+      collective_search_array(:packages_with_prefix, prefixes, utils)
+    end
+
+    # TODO: write docs for Puppet::Util::RepoUtils.package_candidates
+    def self.package_records_with_prefixes(prefixes, utils = suitablerepoutils)
+      collective_search_hash(:package_records_with_prefix, prefixes, utils)
+    end
+
+    # TODO: write docs for Puppet::Util::RepoUtils.package_candidates
+    def self.package_versions_with_prefixes(prefixes, utils = suitablerepoutils)
+      collective_search_hash(:package_versions_with_prefix, prefixes, utils)
+    end
+
+    # TODO: write docs for Puppet::Util::RepoUtils.package_candidates
+    def self.package_candidates_with_prefixes(prefixes, utils = suitablerepoutils)
+      collective_search_hash(:package_candidates_with_prefix, prefixes, utils)
     end
 
   end

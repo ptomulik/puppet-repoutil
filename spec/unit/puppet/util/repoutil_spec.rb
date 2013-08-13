@@ -12,6 +12,10 @@ describe "Puppet::Util::RepoUtils" do
     :package_records,
     :package_versions,
     :package_candidates,
+    :packages_with_prefixes,
+    :package_records_with_prefixes,
+    :package_versions_with_prefixes,
+    :package_candidates_with_prefixes,
   ].each do |method|
     it "should respond to #{method}" do
       Puppet::Util::RepoUtils.respond_to?(method).should == true
