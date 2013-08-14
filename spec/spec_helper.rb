@@ -12,7 +12,6 @@
 
 require 'rubygems'
 require 'puppetlabs_spec_helper/module_spec_helper'
-require 'puppet/util/repoutil'
 
 RSpec.configure do |config|
   # FIXME REVISIT - We may want to delegate to Facter like we do in

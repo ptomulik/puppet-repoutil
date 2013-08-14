@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'puppet/util/repoutil'
 
 begin
   require 'zlib'

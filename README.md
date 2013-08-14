@@ -450,10 +450,6 @@ Arguments:
   * `prefixes` - prefix or an array of prefixes to be matched against package names,
   * `utils` - array with repoutil providers to be queried (optional).
 
-*Example*:
-
-    records = Puppet::Util::RepoUtils.packages_with_prefixes(['apt', 'apache2'])
-
 Returns a hash with the form same as in
 [`Puppet::Util::RepoUtils.package_records`](#package_recordspackages-utils--suitablerepoutils)
 
