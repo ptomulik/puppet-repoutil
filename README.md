@@ -1,6 +1,6 @@
-#ptomulik-repoutil
+# ptomulik-repoutil
 
-####Table of Contents
+#### Table of Contents
 
 1. [Overview](#overview)
 2. [Module Description](#module-description)
@@ -13,7 +13,7 @@
 5. [Limitations](#limitations)
 6. [Development](#development)
 
-##Overview
+## Overview
 
 Puppet utilities to interact with package repositories. Simplify tasks such
 as obtaining lists of packages available for installation, their versions,
@@ -21,7 +21,7 @@ installation candidates and so on. This plugin may be handy, if you need to
 implement facts describing packages available to agents' via their package
 repositories.
 
-##Module Description
+## Module Description
 
 The module provides means to access meta-information from package repositories
 such as apt or yum. The supported operations currently include: 
@@ -39,9 +39,9 @@ The module currently supports the following providers:
 Utilities provided by `repoutil` are devoted to developers of other modules,
 and are not intended to be used directly from puppet manifests. 
 
-##Setup
+## Setup
 
-###What repoutil affects
+### What repoutil affects
 
   * it executes CLI commands necessary to query information from package
     repositories. The exact list of commands being executed depend on agent's OS
@@ -52,11 +52,11 @@ and are not intended to be used directly from puppet manifests.
     - on Debian: `apt-cache show|policy`, `aptitude show`, 
     - on FreeBSD, OpenBSD, NetBSD:  `make -C /path/to/ports search`,
 
-###Setup Requirements 
+### Setup Requirements 
 
 You may need to enable **pluginsync** in your *puppet.conf*.
 	
-###Beginning with repoutil	
+### Beginning with repoutil	
 
 Let's say, you're developing your custom fact or resource type and you need to
 characterize some packages existing in your package repository. The repoutil
@@ -178,7 +178,7 @@ This should return a hash such as:
 
 In case there is no such package in repository, `nil` is returned.
 
-##Usage
+## Usage
 
 The module consists of two ruby classes: 
 
@@ -220,7 +220,7 @@ may be used to retrieve lists of package candidates known to all the suitable
 package repositories (this yields a hash of the form `{:apt => {...}, :aptitude
 => {...}, ...}`).
 
-##Reference
+## Reference
 
 ### Methods within `Puppet::Util` module
 
@@ -662,12 +662,12 @@ Return full records for all available packages having name starting with
 If there is no package matching the prefix, an empty hash is returned.
 
 
-##Limitations
+## Limitations
 
   * Currently supports only Debian/Ubuntu *apt*, *aptitude* and FreeBSD *ports*
   * Some tests are missing.
 
-##Development
+## Development
 
 The project is held on github:
 
