@@ -1,4 +1,5 @@
 2016-06-11 Paweł Tomulik <ptomulik@meil.pw.edu.pl>
+  * fix .gitignore to work well for 'puppet module build'
   * release 0.1.4
   * added coveralls support
   * made the module compatible with puppet 4.x
