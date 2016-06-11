@@ -1,12 +1,18 @@
-2013-08-23 Pawel Tomulik <ptomulik@meil.pw.edu.pl>
+2016-06-11 Paweł Tomulik <ptomulik@meil.pw.edu.pl>
+  * remove Modulefile in favour of metadata.json
+  * update .travis.yml -- add more test variants
+  * cleanup Rakefile and revise Gemfile to abandon rspec-system
+  * update specs to work with recent rspec without warnings
+  * remove trailing whitespaces in sources
+2013-08-23 Paweł Tomulik <ptomulik@meil.pw.edu.pl>
   * release 0.1.3
-2013-07-14 Pawel Tomulik <ptomulik@meil.pw.edu.pl>
+2013-07-14 Paweł Tomulik <ptomulik@meil.pw.edu.pl>
   * corrections to README.md and to tests
-2013-07-12 Pawel Tomulik <ptomulik@meil.pw.edu.pl>
+2013-07-12 Paweł Tomulik <ptomulik@meil.pw.edu.pl>
   * release 0.1.2
   * finished README.md
   * added new methods for collective repository search
-2013-07-12 Pawel Tomulik <ptomulik@meil.pw.edu.pl>
+2013-07-12 Paweł Tomulik <ptomulik@meil.pw.edu.pl>
   * release 0.1.1
   * fixed bug caused by usage of Regexp.match() { .. block .. }, blocks are not
     supported (ignored) by Regexp.match() in ruby<=1.8
