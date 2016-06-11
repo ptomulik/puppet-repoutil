@@ -1,0 +1,13 @@
+{
+  "name": "ptomulik-repoutil",
+  "version": "0.1.4",
+  "author": "ptomulik",
+  "summary": "Interact with package repositories in OS-indepenent way",
+  "license": "Apache License, Version 2.0",
+  "source": "git://github.com/ptomulik/puppet-repoutil.git",
+  "project_page": "https://gitbub.com/ptomulik/puppet-repoutil",
+  "issues_url": "https://github.com/ptomulik/puppet-repoutil/issues",
+  "description": "Puppet module for OS-indepentend interaction with package repositories",
+  "dependencies": [
+  ]
+}
