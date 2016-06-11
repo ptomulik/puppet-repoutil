@@ -19,7 +19,7 @@ describe "Puppet::Util::RepoUtils" do
     :package_candidates_with_prefixes,
   ].each do |method|
     it "should respond to #{method}" do
-      Puppet::Util::RepoUtils.respond_to?(method).should == true
+      expect(Puppet::Util::RepoUtils.respond_to?(method)).to eql(true)
     end
   end
 end
@@ -33,7 +33,7 @@ describe "Puppet::Util::RepoUtil" do
   ]
 
   it "should be a class derived from Puppet::Provider" do
-    (Puppet::Util::RepoUtil < Puppet::Provider).should be_true
+    expect(Puppet::Util::RepoUtil < Puppet::Provider).to be_truthy
   end
 
   [ :package_name_regexp,
@@ -56,7 +56,7 @@ describe "Puppet::Util::RepoUtil" do
     :package_records_with_prefix,
   ].each do |method|
     it "should respond to #{method}" do
-      Puppet::Util::RepoUtil.respond_to?(method).should == true
+      expect(Puppet::Util::RepoUtil.respond_to?(method)).to eql(true)
     end
   end
 
@@ -69,7 +69,7 @@ describe "Puppet::Util::RepoUtil" do
     :retrieve_records => lambda { klass.retrieve_records('foo') },
   }.each do |name, method|
     it "#{name}('') should raise NotImplementedError" do
-      method.should (raise_error NotImplementedError)
+      expect(method).to (raise_error NotImplementedError)
     end
   end
 
@@ -78,12 +78,12 @@ describe "Puppet::Util::RepoUtil" do
     context "repoutil(:#{name})" do
       repo = Puppet::Util::RepoUtils.repoutil(name)
       it "should not return nil" do
-        repo.should_not be_nil
+        expect(repo).to_not be_nil
       end
       if not repo.nil?
         it "should return a subclass of Puppet::Util::RepoUtil" do
           repo.class.equal? Class
-          (repo < Puppet::Util::RepoUtil).should be_true
+          expect(repo < Puppet::Util::RepoUtil).to be_truthy
         end
         [ [ :package_name_regexp, lambda { repo.package_name_regexp } ],
           [ :package_prefix_regexp, lambda { repo.package_prefix_regexp } ],

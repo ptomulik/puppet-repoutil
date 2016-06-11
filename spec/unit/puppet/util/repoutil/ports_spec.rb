@@ -11,7 +11,7 @@ end
 
 describe "Puppet::Util.repoutil(:ports)" do
   it "should exist" do
-    Puppet::Util::RepoUtils.repoutil(:ports).should_not be_nil
+    expect(Puppet::Util::RepoUtils.repoutil(:ports)).to_not be_nil
   end
 
   repo = Puppet::Util::RepoUtils.repoutil(:ports)
@@ -24,7 +24,7 @@ describe "Puppet::Util.repoutil(:ports)" do
       'apache22', 'jack_mixer', 'last.fm'
     ].each do |str|
       it "should match '#{str}'" do
-        str.match(/^#{re}$/).should_not be_nil
+        expect(str.match(/^#{re}$/)).to_not be_nil
       end
     end
     [ '', ' ', '  ',
@@ -35,7 +35,7 @@ describe "Puppet::Util.repoutil(:ports)" do
       'ab,cd', 'ab>cd', 'ab?cd', 'ab/cd',
     ].each do |str|
       it "should not match '#{str}'" do
-        str.match(/^#{re}$/).should be_nil
+        expect(str.match(/^#{re}$/)).to be_nil
       end
     end
   end
@@ -49,7 +49,7 @@ describe "Puppet::Util.repoutil(:ports)" do
       'apache22', 'jack_mixer', 'last.fm'
     ].each do |str|
       it "should match '#{str}'" do
-        str.match(/^#{re}$/).should_not be_nil
+        expect(str.match(/^#{re}$/)).to_not be_nil
       end
     end
     [ ' ', '  ',
@@ -60,7 +60,7 @@ describe "Puppet::Util.repoutil(:ports)" do
       'ab,cd', 'ab>cd', 'ab?cd', 'ab/cd',
     ].each do |str|
       it "should not match '#{str}'" do
-        str.match(/^#{re}$/).should be_nil
+        expect(str.match(/^#{re}$/)).to be_nil
       end
     end
   end
@@ -73,7 +73,7 @@ describe "Puppet::Util.repoutil(:ports)" do
       '.' => '\\.'
     }.each do |unescaped,escaped|
       it "should map #{unescaped.inspect} to #{escaped.inspect}" do
-        repo.escape_package_name(unescaped).should == escaped
+        expect(repo.escape_package_name(unescaped)).to eq(escaped)
       end
     end
   end
@@ -86,7 +86,7 @@ describe "Puppet::Util.repoutil(:ports)" do
       '.' => '\\.'
     }.each do |unescaped,escaped|
       it "should map #{unescaped.inspect} to #{escaped.inspect}" do
-        repo.escape_package_prefix(unescaped).should == escaped
+        expect(repo.escape_package_prefix(unescaped)).to eq(escaped)
       end
     end
   end
@@ -107,8 +107,8 @@ describe "Puppet::Util.repoutil(:ports)" do
     context "retrieve_records('^')" do
       records = repo.retrieve_records('^')
       it "should return a nonempty hash" do
-        records.should be_a(Hash)
-        records.should_not be_empty
+        expect(records).to be_a(Hash)
+        expect(records).to_not be_empty
       end
       it "should update records_cache" do
       end
@@ -117,8 +117,8 @@ describe "Puppet::Util.repoutil(:ports)" do
     context "retrieve_candidates('^')" do
       candidates = repo.retrieve_candidates('^')
       it "should return a nonempty hash" do
-        candidates.should be_a(Hash)
-        candidates.should_not be_empty
+        expect(candidates).to be_a(Hash)
+        expect(candidates).to_not be_empty
       end
       it "should update candidates_cache" do
       end
@@ -127,16 +127,16 @@ describe "Puppet::Util.repoutil(:ports)" do
     context "retrieve_records('^nonexistent')" do
       records = repo.retrieve_records('^nonexistent')
       it "should return an empty hash" do
-        records.should be_a(Hash)
-        records.should be_empty
+        expect(records).to be_a(Hash)
+        expect(records).to be_empty
       end
     end
 
     context "retrieve_candidates('^nonexistent')" do
       candidates = repo.retrieve_candidates('^nonexistent')
       it "should return an empty hash" do
-        candidates.should be_a(Hash)
-        candidates.should be_empty
+        expect(candidates).to be_a(Hash)
+        expect(candidates).to be_empty
       end
     end
 

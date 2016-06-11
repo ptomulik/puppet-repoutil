@@ -11,7 +11,7 @@ end
 
 describe "Puppet::Util.repoutil(:aptitude)" do
   it "should exist" do
-    Puppet::Util::RepoUtils.repoutil(:aptitude).should_not be_nil
+    expect(Puppet::Util::RepoUtils.repoutil(:aptitude)).to_not be_nil
   end
 
   repo = Puppet::Util::RepoUtils.repoutil(:aptitude)
@@ -32,8 +32,8 @@ describe "Puppet::Util.repoutil(:aptitude)" do
     context "retrieve_records('^')" do
       records = repo.retrieve_records('^')
       it "should return a nonempty hash" do
-        records.should be_a(Hash)
-        records.should_not be_empty
+        expect(records).to be_a(Hash)
+        expect(records).to_not be_empty
       end
       it "should update records_cache" do
       end
@@ -42,8 +42,8 @@ describe "Puppet::Util.repoutil(:aptitude)" do
     context "retrieve_candidates('^')" do
       candidates = repo.retrieve_candidates('^')
       it "should return a nonempty hash" do
-        candidates.should be_a(Hash)
-        candidates.should_not be_empty
+        expect(candidates).to be_a(Hash)
+        expect(candidates).to_not be_empty
       end
       it "should update candidates_cache" do
       end
@@ -52,16 +52,16 @@ describe "Puppet::Util.repoutil(:aptitude)" do
     context "retrieve_records('^nonexistent')" do
       records = repo.retrieve_records('^nonexistent')
       it "should return an empty hash" do
-        records.should be_a(Hash)
-        records.should be_empty
+        expect(records).to be_a(Hash)
+        expect(records).to be_empty
       end
     end
 
     context "retrieve_candidates('^nonexistent')" do
       candidates = repo.retrieve_candidates('^nonexistent')
       it "should return an empty hash" do
-        candidates.should be_a(Hash)
-        candidates.should be_empty
+        expect(candidates).to be_a(Hash)
+        expect(candidates).to be_empty
       end
     end
 
