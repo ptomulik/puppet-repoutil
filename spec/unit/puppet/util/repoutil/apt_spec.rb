@@ -102,6 +102,25 @@ describe "Puppet::Util.repoutil(:apt)" do
     end
   end
 
+  context "retrieve_candidates" do
+    context "when execution error 'No packages found' occurs" do
+      before(:each) do
+        repo.stubs(:show_policies).with('^foobar').raises(Puppet::ExecutionFailure, "No packages found")
+      end
+      it "should return empty hash" do
+        expect(repo.retrieve_candidates('^foobar')).to eql({})
+      end
+    end
+    context "when execution error occurs" do
+      before(:each) do
+        repo.stubs(:show_policies).with('^foobar').raises(Puppet::ExecutionFailure, "Blah blah blah")
+      end
+      it "should return empty hash" do
+        expect { repo.retrieve_candidates('^foobar') }.to raise_error(Puppet::ExecutionFailure, "Blah blah blah")
+      end
+    end
+  end
+
   context "using fixture files apt-cache-*.txt.gz" do
     dir = File.join(File.dirname(__FILE__),'..','..','..','..','fixtures','modules', 'repoutil-fixtures','files')
     repo = Puppet::Util::RepoUtils.repoutil(:apt)
@@ -131,6 +150,7 @@ describe "Puppet::Util.repoutil(:apt)" do
         expect(candidates).to_not be_empty
       end
       it "should update candidates_cache" do
+        # TODO: implement the test
       end
     end
 

@@ -41,7 +41,7 @@ module Puppet::Util
         output = show_policies(pattern)
       rescue Puppet::ExecutionFailure => err
         # NOTE: we may wish to implement reaction to failures at some point
-        raise err unless err.message =~ /No packages found/
+        raise unless err.message =~ /No packages found/
         {}
       else
         candidates = {}

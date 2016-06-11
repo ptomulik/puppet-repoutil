@@ -5,6 +5,7 @@ pkg/
 spec/fixtures/
 .rspec_system
 .bundle/
+coverage/
 # Editor junk
 *.swp
 *.bkp

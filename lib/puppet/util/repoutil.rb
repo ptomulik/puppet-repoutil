@@ -317,7 +317,6 @@ module Puppet::Util
     def self.package_candidates_with_prefixes(prefixes, utils = suitablerepoutils)
       collective_search_hash(:package_candidates_with_prefix, prefixes, utils)
     end
-
   end
 
   def self.newrepoutil(name, options = {}, &block)
