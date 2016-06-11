@@ -1,4 +1,7 @@
 2016-06-11 Paweł Tomulik <ptomulik@meil.pw.edu.pl>
+  * release 0.1.4
+  * added coveralls support
+  * made the module compatible with puppet 4.x
   * remove Modulefile in favour of metadata.json
   * update .travis.yml -- add more test variants
   * cleanup Rakefile and revise Gemfile to abandon rspec-system
