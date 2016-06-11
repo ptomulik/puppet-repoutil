@@ -1,6 +1,7 @@
 # ptomulik-repoutil
 
 [![Build Status](https://travis-ci.org/ptomulik/puppet-repoutil.svg?branch=master)](https://travis-ci.org/ptomulik/puppet-repoutil)
+[![Coverage Status](https://coveralls.io/repos/github/ptomulik/puppet-repoutil/badge.svg?branch=master)](https://coveralls.io/github/ptomulik/puppet-repoutil?branch=master)
 
 #### Table of Contents
 
