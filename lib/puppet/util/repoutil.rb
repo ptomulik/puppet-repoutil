@@ -177,7 +177,12 @@ module Puppet::Util
       end
 
       # Try loading the type
-      if repoutilloader.load(name, Puppet::Node::Environment.current)
+      if Gem::Version.new(Puppet.version) < Gem::Version.new('3.5.0')
+        current_environment = Puppet::Node::Environment.current
+      else
+        current_environment = Puppet.lookup(:current_environment)
+      end
+      if repoutilloader.load(name, current_environment)
         Puppet.warning "Loaded puppet/util/repoutil/#{name} but no class was created" unless @@repoutil_hash.include? name
       end
 
@@ -226,7 +231,11 @@ module Puppet::Util
 
     def self.repoutilloader
       unless defined?(@@repoutilloader)
-        @@repoutilloader = Puppet::Util::Autoload.new(self, "puppet/util/repoutil", :wrap => false)
+        args = {}
+        if Gem::Version.new(Puppet::version) < Gem::Version.new('4.0.0')
+          args[:wrap] = false
+        end
+        @@repoutilloader = Puppet::Util::Autoload.new(self, "puppet/util/repoutil", args)
       end
       @@repoutilloader
     end
