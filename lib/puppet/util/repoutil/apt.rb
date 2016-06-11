@@ -13,11 +13,11 @@ module Puppet::Util
     end
 
     def self.escape_package_name(package)
-      package.gsub(/([\.\+])/) {|c| '\\' + c} 
+      package.gsub(/([\.\+])/) {|c| '\\' + c}
     end
 
     def self.escape_package_prefix(prefix)
-      prefix.gsub(/([\.\+])/) {|c| '\\' + c} 
+      prefix.gsub(/([\.\+])/) {|c| '\\' + c}
     end
 
     def self.package_name_to_pattern(package)
@@ -48,11 +48,11 @@ module Puppet::Util
         package = nil
         output.each_line do |line|
           if (m = line.match(/^(#{package_name_regexp}):\s*$/))
-            package = m.captures[0] 
+            package = m.captures[0]
           end
-          if (m = line.match(/^\s+Candidate:\s*(\S+)\s*$/)) 
+          if (m = line.match(/^\s+Candidate:\s*(\S+)\s*$/))
             candidate = m.captures[0]
-            if package and candidate and (not candidate.match(/^\(none\)$/)) 
+            if package and candidate and (not candidate.match(/^\(none\)$/))
               candidates[package] = candidate
               package = nil
             end
@@ -78,12 +78,12 @@ module Puppet::Util
         fv_re = /\S.*(?:\r?\n(?:(?:\s*\.\s*)|(?:\s+\S.*)))*/ # field value
         re = /^(#{fn_re})\s*:\s*(#{fv_re})\s*$/
 
-			  paragraphs = output.split(/\n\n+/) 
-        records = paragraphs.reject { |para| 
+			  paragraphs = output.split(/\n\n+/)
+        records = paragraphs.reject { |para|
           ((not para.match(/^Package:/)) or (not para.match(/^Version:/)))
-        }.map { |para| 
+        }.map { |para|
           para.scan(re).map {|cs| cs[0..1]}
-        }.map { |pairs| 
+        }.map { |pairs|
           Hash[pairs]
         }
 

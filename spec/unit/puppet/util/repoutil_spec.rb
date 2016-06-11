@@ -35,7 +35,7 @@ describe "Puppet::Util::RepoUtil" do
   it "should be a class derived from Puppet::Provider" do
     (Puppet::Util::RepoUtil < Puppet::Provider).should be_true
   end
-  
+
   [ :package_name_regexp,
     :package_prefix_regexp,
     :validate_package_name,
@@ -59,7 +59,7 @@ describe "Puppet::Util::RepoUtil" do
       Puppet::Util::RepoUtil.respond_to?(method).should == true
     end
   end
- 
+
   klass = Puppet::Util::RepoUtil
   { :package_name_regexp => lambda { klass.package_name_regexp },
     :package_prefix_regexp => lambda { klass.package_prefix_regexp },
@@ -110,7 +110,7 @@ describe "Puppet::Util::RepoUtil" do
               # deprecated
               begin
                 method.call
-              rescue NotImplementedError 
+              rescue NotImplementedError
                 fail "#{repo}.#{name} is not implemented"
               rescue ArgumentError, Puppet::ExecutionFailure, Puppet::Error
                 # pass

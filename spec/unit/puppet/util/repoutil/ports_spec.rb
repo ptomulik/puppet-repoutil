@@ -18,7 +18,7 @@ describe "Puppet::Util.repoutil(:ports)" do
 
   context "package_name_regexp" do
     re = repo.package_name_regexp
-    [ '0', 'a', 'A', 
+    [ '0', 'a', 'A',
       '0_', 'a_', 'A_', '0.', 'a.', 'A.', '0+', 'a+', 'A+', '0-', 'a-', 'A-',
       'a0', 'aa', 'aA', 'A0', 'Aa', 'AA',
       'apache22', 'jack_mixer', 'last.fm'
@@ -32,7 +32,7 @@ describe "Puppet::Util.repoutil(:ports)" do
       'ab cd', 'ab`cd', 'ab!cd', 'ab@cd', 'ab#cd', 'ab$cd', 'ab%cd', 'ab^cd',
       'ab&cd', 'ab*cd', 'ab(cd', 'ab)cd', 'ab)cd', 'ab{cd', 'ab}cd', 'ab[cd',
       'ab]cd', 'ab:cd', 'ab;cd', 'ab"cd', 'ab\'cd', 'ab|cd','ab\\cd', 'ab<cd',
-      'ab,cd', 'ab>cd', 'ab?cd', 'ab/cd', 
+      'ab,cd', 'ab>cd', 'ab?cd', 'ab/cd',
     ].each do |str|
       it "should not match '#{str}'" do
         str.match(/^#{re}$/).should be_nil
@@ -43,7 +43,7 @@ describe "Puppet::Util.repoutil(:ports)" do
   context "package_prefix_regexp" do
     re = repo.package_prefix_regexp
     [ '',
-      '0', 'a', 'A', 
+      '0', 'a', 'A',
       '0_', 'a_', 'A_', '0.', 'a.', 'A.', '0+', 'a+', 'A+', '0-', 'a-', 'A-',
       'a0', 'aa', 'aA', 'A0', 'Aa', 'AA',
       'apache22', 'jack_mixer', 'last.fm'
@@ -57,7 +57,7 @@ describe "Puppet::Util.repoutil(:ports)" do
       'ab cd', 'ab`cd', 'ab!cd', 'ab@cd', 'ab#cd', 'ab$cd', 'ab%cd', 'ab^cd',
       'ab&cd', 'ab*cd', 'ab(cd', 'ab)cd', 'ab)cd', 'ab{cd', 'ab}cd', 'ab[cd',
       'ab]cd', 'ab:cd', 'ab;cd', 'ab"cd', 'ab\'cd', 'ab|cd','ab\\cd', 'ab<cd',
-      'ab,cd', 'ab>cd', 'ab?cd', 'ab/cd', 
+      'ab,cd', 'ab>cd', 'ab?cd', 'ab/cd',
     ].each do |str|
       it "should not match '#{str}'" do
         str.match(/^#{re}$/).should be_nil
@@ -92,14 +92,14 @@ describe "Puppet::Util.repoutil(:ports)" do
   end
 
   context "using fixture file ports-make-search.tar.gz" do
-    let :facts do 
+    let :facts do
       {
         :operatingsystem => :freebsd
       }
     end
     dir = File.join(File.dirname(__FILE__),'..','..','..','..','fixtures','modules', 'repoutil-fixtures','files')
     repo = Puppet::Util::RepoUtils.repoutil(:ports)
-    Zlib::GzipReader.open(File.join(dir, "ports-make-search.txt.gz")) { |gz| 
+    Zlib::GzipReader.open(File.join(dir, "ports-make-search.txt.gz")) { |gz|
       repo.stubs(:make).with('-C', '/usr/ports', 'search', 'name=^').returns(gz.read)
     }
     repo.stubs(:make).with('-C', '/usr/ports', 'search', 'name=^nonexistent').returns("\n")

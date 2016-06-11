@@ -26,11 +26,11 @@ module Puppet::Util
     end
 
     def self.escape_package_name(package)
-      package.gsub(/([\.])/) {|c| '\\' + c} 
+      package.gsub(/([\.])/) {|c| '\\' + c}
     end
 
     def self.escape_package_prefix(prefix)
-      prefix.gsub(/([\.])/) {|c| '\\' + c} 
+      prefix.gsub(/([\.])/) {|c| '\\' + c}
     end
 
     def self.package_name_to_pattern(package)
@@ -48,25 +48,25 @@ module Puppet::Util
 
     def self.parse_records(string)
       begin
-        paragraphs = string.split(/\n\n+/) 
+        paragraphs = string.split(/\n\n+/)
       rescue ArgumentError => err
-        # try handle non-ascii descriptions (see 'fr-belote' package i.e.) 
+        # try handle non-ascii descriptions (see 'fr-belote' package i.e.)
         raise err unless err.message =~ /invalid byte sequence/
         inenc = 'UTF-8' # assumed ad-hoc
         string.encode!('ASCII', inenc, {:invalid=>:replace, :undef=>:replace})
-        paragraphs = string.split(/\n\n+/) 
+        paragraphs = string.split(/\n\n+/)
       end
 
       fn_re = /[A-Za-z0-9_-]+/ # field name
       fv_re = /\S?.*\S/ # field value
       re = /^\s*(#{fn_re})\s*:\s*(#{fv_re})\s*$/
 
-      records = paragraphs.reject { |para| 
-        para.match(/^Moved:/) or (not para.match(/^Path:/)) or 
+      records = paragraphs.reject { |para|
+        para.match(/^Moved:/) or (not para.match(/^Path:/)) or
         (not para.match(/^Port:/))
-      }.map { |para| 
+      }.map { |para|
         para.scan(re)
-      }.map { |pairs| 
+      }.map { |pairs|
         Hash[pairs]
       }
 

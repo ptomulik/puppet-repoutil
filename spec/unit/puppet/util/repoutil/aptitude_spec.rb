@@ -20,10 +20,10 @@ describe "Puppet::Util.repoutil(:aptitude)" do
   context "using fixture files aptitude-show.txt.gz and apt-cache-policy.txt.gz" do
     dir = File.join(File.dirname(__FILE__),'..','..','..','..','fixtures','modules', 'repoutil-fixtures','files')
     repo = Puppet::Util::RepoUtils.repoutil(:apt)
-    Zlib::GzipReader.open(File.join(dir, "aptitude-show.txt.gz")) { |gz| 
+    Zlib::GzipReader.open(File.join(dir, "aptitude-show.txt.gz")) { |gz|
       repo.stubs(:aptitude).with('-q=2', 'show', '~n^').returns(gz.read)
     }
-    Zlib::GzipReader.open(File.join(dir, "apt-cache-policy.txt.gz")) { |gz| 
+    Zlib::GzipReader.open(File.join(dir, "apt-cache-policy.txt.gz")) { |gz|
       repo.stubs(:aptcache).with('-q=2', '-a', 'policy', '^').returns(gz.read)
     }
     repo.stubs(:aptitude).with('-q=2', 'show', '~n^nonexistent').returns("\n")

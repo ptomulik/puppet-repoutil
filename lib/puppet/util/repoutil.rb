@@ -93,13 +93,13 @@ module Puppet::Util
     def self.package_versions_with_prefix(prefix)
       Hash[ package_records_with_prefix(prefix).map { |k,r| [k, r.keys] }]
     end
-    
+
     # TODO: write documentation for Puppet::Util::RepoUtil.package_candidates_with_prefix
     def self.package_candidates_with_prefix(prefix)
       validate_package_prefix(prefix)
       retrieve_candidates(package_prefix_to_pattern(prefix))
     end
-    
+
     # TODO: write documentation for Puppet::Util::RepoUtil.package_records_with_prefix
     def self.package_records_with_prefix(prefix)
       validate_package_prefix(prefix)
@@ -151,7 +151,7 @@ module Puppet::Util
 
       klass = genclass(
         name,
-        :parent => parent, 
+        :parent => parent,
         :overwrite => true,
         :hash => @@repoutil_hash,
         :attributes => options,
@@ -236,10 +236,10 @@ module Puppet::Util
       subjects = [ subjects ] if not subjects.is_a?(Array)
       utils = utils.map { |u| u.respond_to?(opname) ? u : repoutil(u.intern) }
       hash = Hash[ utils.map { |u|
-        [ 
-          u.name, Hash[ subjects.map { |p| 
-            [p, u.method(opname).call(p)] 
-          }.reject{ |p, r| r.nil? } ] 
+        [
+          u.name, Hash[ subjects.map { |p|
+            [p, u.method(opname).call(p)]
+          }.reject{ |p, r| r.nil? } ]
         ]
       }]
     end

@@ -1,5 +1,7 @@
 # ptomulik-repoutil
 
+[![Build Status](https://travis-ci.org/ptomulik/puppet-repoutil.svg?branch=master)](https://travis-ci.org/ptomulik/puppet-repoutil)
+
 #### Table of Contents
 
 1. [Overview](#overview)
@@ -24,7 +26,7 @@ repositories.
 ## Module Description
 
 The module provides means to access meta-information from package repositories
-such as apt or yum. The supported operations currently include: 
+such as apt or yum. The supported operations currently include:
 
   * listing available packages,
   * listing available package(s) versions,
@@ -37,7 +39,7 @@ The module currently supports the following providers:
   * ports (FreeBSD)
 
 Utilities provided by `repoutil` are devoted to developers of other modules,
-and are not intended to be used directly from puppet manifests. 
+and are not intended to be used directly from puppet manifests.
 
 ## Setup
 
@@ -45,18 +47,18 @@ and are not intended to be used directly from puppet manifests.
 
   * it executes CLI commands necessary to query information from package
     repositories. The exact list of commands being executed depend on agent's OS
-    and module's usage, but generally they should be regarded as harmless. 
-    
-    The following CLI commands are currently used by `repoutil`'s: 
+    and module's usage, but generally they should be regarded as harmless.
 
-    - on Debian: `apt-cache show|policy`, `aptitude show`, 
+    The following CLI commands are currently used by `repoutil`'s:
+
+    - on Debian: `apt-cache show|policy`, `aptitude show`,
     - on FreeBSD, OpenBSD, NetBSD:  `make -C /path/to/ports search`,
 
-### Setup Requirements 
+### Setup Requirements
 
 You may need to enable **pluginsync** in your *puppet.conf*.
-	
-### Beginning with repoutil	
+
+### Beginning with repoutil
 
 Let's say, you're developing your custom fact or resource type and you need to
 characterize some packages existing in your package repository. The repoutil
@@ -71,10 +73,10 @@ Once the module file is included you may obtain reference to repoutil provider
 example, apt `repo` may be obtained as follows:
 
     repo = Puppet::Util.repoutil(:apt)
- 
+
 The `:apt` utility is **suitable** for use on Debian or Ubuntu. For other
 systems we should choose other facility. The most universal way is to load
-default utility for current environment: 
+default utility for current environment:
 
     repo = Puppet::Util.defaultrepoutil
 
@@ -96,9 +98,9 @@ There are also other methods. For example:
 would return a hash with keys being the package names (from previous example)
 and arrays of available versions as values:
 
-    { 
+    {
       "apache2"             => ["2.4.6-2", "2.2.22-13"],
-      "apache2-mpm-prefork" => ["2.4.6-2", "2.2.22-13"], 
+      "apache2-mpm-prefork" => ["2.4.6-2", "2.2.22-13"],
       "apache2-mpm-itk"     => ["2.4.6-2", "2.2.22-13"],
       . . .
     }
@@ -110,7 +112,7 @@ and other information) you may use:
 
 This would return a hash such as the following:
 
-    { 
+    {
       "apache2" => {
         "2.4.6-2" => {
           "Package"=>"apache2",
@@ -160,14 +162,14 @@ To retrieve full records for available package versions we type:
 This should return a hash such as:
 
     {
-      "2.4.6-2" => 
+      "2.4.6-2" =>
       {
         "Package"=>"apache2",
         "Version"=>"2.4.6-2",
         "Installed-Size"=>"481",
         . . .
       },
-      "2.2.22-13" => 
+      "2.2.22-13" =>
       {
         "Package"=>"apache2",
         "Version"=>"2.2.22-13",
@@ -180,7 +182,7 @@ In case there is no such package in repository, `nil` is returned.
 
 ## Usage
 
-The module consists of two ruby classes: 
+The module consists of two ruby classes:
 
   - [`Puppet::Util::RepoUtil`](#methods-within-puppetutilrepoutil-class) -
     represents single utility,
@@ -204,7 +206,7 @@ reference](#provider-management). [Methods within
 descendants) may be used to operate on a single repository.
 
 [Methods within `Puppet::Util::RepoUtils`](#methods-within-puppetutilrepoutils-class)
-are twofold. Some of them are provided to 
+are twofold. Some of them are provided to
 [manage providers](#provider-management). These include
 [`newrepoutil`](#newrepoutilname-options---block-1) (to implement new
 providers), [`unrepoutil`](#unrepoutilname) (to unregister particular
@@ -213,7 +215,7 @@ provider), [`repoutils`](#repoutils-1) (to retrieve all available providers),
 suitable for the current environment), [`defaultrepoutil`](#defaultrepoutil-1)
 to get provider default to current environment and
 [`repoutil`](#repoutilname-1) (to retrieve particular provider). Other methods
-within `Puppet::Util::RepoUtils` may be used to perform 
+within `Puppet::Util::RepoUtils` may be used to perform
 [collective operations](#collective-operations-on-repositories)
 on repositories. For example, [`package_candidates`](#package_candidatespackages)
 may be used to retrieve lists of package candidates known to all the suitable
@@ -228,7 +230,7 @@ package repositories (this yields a hash of the form `{:apt => {...}, :aptitude
 
 Shorthand to [`Puppet::Util::RepoUtils.newrepoutil`](#newrepoutilname-options---block-1).
 
-##### repoutil(name) 
+##### repoutil(name)
 
 Shorthand to [`Puppet::Util::RepoUtils.repoutil`](#repoutilname-1).
 
@@ -242,17 +244,17 @@ Shorthand to [`Puppet::Util::RepoUtils.suitablerepoutils`](#suitablerepoutils-1)
 
 ##### defaultrepoutil
 
-Shorthand to [`Puppet::Util::RepoUtils.defaultrepoutil`](#defaultrepoutil-1). 
+Shorthand to [`Puppet::Util::RepoUtils.defaultrepoutil`](#defaultrepoutil-1).
 
 
 ### Methods within `Puppet::Util::RepoUtils` class
 
 #### Provider management
 
-##### newrepoutil(name, options = {}, &block) 
+##### newrepoutil(name, options = {}, &block)
 
 Define new repo provider. This is intended for developers/contributors and may
-be used to add support for new repository types. For details about extending 
+be used to add support for new repository types. For details about extending
 repoutil module see [adding new utility](#adding-new-utility-provider).
 
 ##### unrepoutil(name)
@@ -333,20 +335,20 @@ Arguments:
 Would return a hash of the form:
 
     {
-      :aptitude => 
-      { 
-        'apache2' => 
+      :aptitude =>
+      {
+        'apache2' =>
         {
-          '2.2.13-2' => { 'Package' => 'apache2', 'Version' => '2.2.13-2', ... } 
-          '2.4.6-2'  => { ... } 
-        } 
+          '2.2.13-2' => { 'Package' => 'apache2', 'Version' => '2.2.13-2', ... }
+          '2.4.6-2'  => { ... }
+        }
       },
-      :apt  => 
-      { 
-        'apache2' => 
-        {  
+      :apt  =>
+      {
+        'apache2' =>
+        {
           '2.2.13-2' => { ... },
-          '2.4.6-2'  => { ... } 
+          '2.4.6-2'  => { ... }
         }
       },
        ...
@@ -373,12 +375,12 @@ Arguments:
 Would return a hash of the form:
 
     {
-      :aptitude => 
+      :aptitude =>
       {
-        "apache2"     =>  ["2.4.6-2"], 
+        "apache2"     =>  ["2.4.6-2"],
         "apache2-dev" =>  ["2.4.6-2"]
       },
-      :apt => 
+      :apt =>
       {
         "apache2"     =>  ["2.4.6-2", "2.2.22-13"],
         "apache2-dev" =>  ["2.4.6-2"]
@@ -413,7 +415,7 @@ would return a hash of the form:
     }
 
 where `:apt`, `:aptitude`, ..., are keys corresponding to repoutil providers
-listed in `utils`. 
+listed in `utils`.
 
 ##### packages\_with\_prefixes(prefixes, utils = suitablerepoutils)
 
@@ -434,7 +436,7 @@ Arguments:
 would return a hash of the form:
 
     {
-      :apt      => ["postfix-policyd-spf-python", "postfix-cdb", ..., "apache2", "apache2-data", ... ], 
+      :apt      => ["postfix-policyd-spf-python", "postfix-cdb", ..., "apache2", "apache2-data", ... ],
       :aptitude => ["postfix-policyd-spf-python", "postfix-cdb", ..., "apache2", "apache2-data", ... ]
     }
 
@@ -489,7 +491,7 @@ Returns a hash with the form same as in
 ##### package\_name\_regexp
 
 Regular expression to match package names. Used for validation of input
-arguments ([`validate_package_name`](#validate_package_namepackage)) by 
+arguments ([`validate_package_name`](#validate_package_namepackage)) by
 functions having `package` argument and to parse output from CLI commands.
 
 ##### package\_prefix\_regexp
@@ -520,7 +522,7 @@ Convert package `prefix` to a pattern for use by `retrieve_records` or
 
 ##### candidates\_cache
 
-Hash containing package candidates already seen by provider. The format is 
+Hash containing package candidates already seen by provider. The format is
 
     {
       'package1' => 'ver1',
@@ -535,7 +537,7 @@ cache.
 
 ##### records\_cache
 
-Hash containing package records already seen by provider. The format is 
+Hash containing package records already seen by provider. The format is
 
     {
       'package1' =>
@@ -622,8 +624,8 @@ Return package versions for all available packages having name starting with
 `prefix`. The function returns a hash in the form
 
     {
-      'packageA' => ['verA1', 'verA2', ...], 
-      'packageB' => ['verB1', 'verB2', ...], 
+      'packageA' => ['verA1', 'verA2', ...],
+      'packageB' => ['verB1', 'verB2', ...],
     }
 
 If there is no package matching the prefix, an empty hash is returned.
@@ -634,8 +636,8 @@ Return package candidates for all available packages having name starting with
 `prefix`. The function returns a hash in the form
 
     {
-      'package1' => 'ver1', 
-      'package2' => 'ver2', 
+      'package1' => 'ver1',
+      'package2' => 'ver2',
     }
 
 ##### package\_records\_with\_prefix(prefix)
@@ -644,18 +646,18 @@ Return full records for all available packages having name starting with
 `prefix`. The function returns a hash in the form
 
     {
-      'packageA' => 
+      'packageA' =>
       {
         'verA1' => { 'Field1' => 'Text1', 'Field2' => 'Text2', ... },
         'verA2' => { 'Field1' => 'Text1', 'Field2' => 'Text2', ... },
         ...
-      }, 
-      'packageB' => 
+      },
+      'packageB' =>
       {
         'verB1' => { 'Field1' => 'Text1', 'Field2' => 'Text2', ... },
         'verB2' => { 'Field1' => 'Text1', 'Field2' => 'Text2', ... },
         ...
-      }, 
+      },
       ...
     }
 
@@ -679,16 +681,16 @@ Feel free to submit bug reports, feature requests or to create pull requests.
 
 #### Adding new utility (provider)
 
-The new utility may be defined by using `Puppet::Util.newrepoutil` method. 
+The new utility may be defined by using `Puppet::Util.newrepoutil` method.
 
   - `Puppet::Util.newrepoutil(name, options = {}, &block)`
 
 If you're extending `repoutil` module, the source code of the new provider (say
-`foo`) should go to file 
+`foo`) should go to file
 
   - `lib/puppet/util/repoutil/foo.rb`
 
-You may also consider adding `:foo` entry to `utils` array in 
+You may also consider adding `:foo` entry to `utils` array in
 
   - `spec/unit/puppet/util/repoutil_spec.rb`
 
@@ -719,12 +721,12 @@ Example template for a repoutil `foo` is presented below:
 
         def self.package_name_regexp
           # this is tool-specific, check if this pattern fits your needs
-          /[a-z0-9][a-z0-9\.+-]+/ 
+          /[a-z0-9][a-z0-9\.+-]+/
         end
 
         def self.package_prefix_regexp
           # this is tool-specific, check if this pattern fits your needs
-          /(?:[a-z0-9][a-z0-9\.+-]*)?/ 
+          /(?:[a-z0-9][a-z0-9\.+-]*)?/
         end
 
         # escape characters that could be interpreted as meta-characters
@@ -753,7 +755,7 @@ Example template for a repoutil `foo` is presented below:
 
         def self.show_candidates(pattern)
           # adjust to the actual syntax of your CLI command
-          foocmd 'candidates',  pattern 
+          foocmd 'candidates',  pattern
         end
 
         def self.show_records(pattern)
