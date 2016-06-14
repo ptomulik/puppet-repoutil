@@ -1,6 +1,6 @@
 {
   "name": "ptomulik-repoutil",
-  "version": "0.1.5",
+  "version": "0.1.6alpha1",
   "author": "ptomulik",
   "summary": "Interact with package repositories in OS-indepenent way",
   "license": "Apache License, Version 2.0",

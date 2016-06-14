@@ -27,7 +27,7 @@ repositories.
 ## Module Description
 
 The module provides means to access meta-information from package repositories
-such as apt or yum. The supported operations currently include:
+such as apt. The supported operations currently include:
 
   * listing available packages,
   * listing available package(s) versions,
@@ -48,7 +48,7 @@ and are not intended to be used directly from puppet manifests.
 
   * it executes CLI commands necessary to query information from package
     repositories. The exact list of commands being executed depend on agent's OS
-    and module's usage, but generally they should be regarded as harmless.
+    and module's usage, but generally they should be regarded as read-only.
 
     The following CLI commands are currently used by `repoutil`'s:
 
@@ -61,11 +61,7 @@ You may need to enable **pluginsync** in your *puppet.conf*.
 
 ### Beginning with repoutil
 
-Let's say, you're developing your custom fact or resource type and you need to
-characterize some packages existing in your package repository. The repoutil
-plugin may be used to obtain meta-data describing these packages.
-
-The preliminary step to use repoutil utilities is to include its module file:
+First, include module file:
 
     require 'puppet/util/repoutil'
 
@@ -76,8 +72,8 @@ example, apt `repo` may be obtained as follows:
     repo = Puppet::Util.repoutil(:apt)
 
 The `:apt` utility is **suitable** for use on Debian or Ubuntu. For other
-systems we should choose other facility. The most universal way is to load
-default utility for current environment:
+systems we should choose other facility. You may also load default utility for
+current environment:
 
     repo = Puppet::Util.defaultrepoutil
 
@@ -138,9 +134,9 @@ This would return a hash such as the following:
       .
     }
 
-Of course, we may operate on exact package names, that is we may request
-information for one particular package. For example, in order to obtain
-available package versions we call:
+We also may operate on exact package names, that is we may request information
+for one particular package. For example, in order to obtain available package
+versions we call:
 
     apache2_versions = repo.package_versions('apache2')
 
