@@ -50,7 +50,7 @@ and are not intended to be used directly from puppet manifests.
     repositories. The exact list of commands being executed depend on agent's OS
     and module's usage, but generally they should be regarded as read-only.
 
-    The following CLI commands are currently used by `repoutil`'s:
+    The following CLI commands are currently used by `repoutil`:
 
     - on Debian: `apt-cache show|policy`, `aptitude show`,
     - on FreeBSD, OpenBSD, NetBSD:  `make -C /path/to/ports search`,
