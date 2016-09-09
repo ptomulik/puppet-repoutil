@@ -18,20 +18,19 @@
 
 ## Overview
 
-Puppet utilities to interact with package repositories. Simplify tasks such
-as obtaining lists of packages available for installation, their versions,
-installation candidates and so on. This plugin may be handy, if you need to
-implement facts describing packages available to agents via their package
-repositories.
+Puppet plugin to interact with package repositories. Simplify tasks such
+listing packages available for installation, their versions, installation
+candidates and so on. Useful for implementing facts describing packages
+existing in package repositories.
 
 ## Module Description
 
 The module provides means to access meta-information from package repositories
-such as apt. The supported operations currently include:
+such as apt. Supported operations currently include:
 
   * listing available packages,
   * listing available package(s) versions,
-  * retrieving full package records (containing descriptions, etc.),
+  * retrieving full package records (descriptions, dependencies, etc.),
   * determining installation candidate (version) for a given package,
 
 The module currently supports the following providers:
