@@ -18,7 +18,7 @@
 
 ## Overview
 
-Puppet plugin to interact with package repositories. Simplify tasks such
+Puppet plugin to interact with package repositories. Simplify tasks such as
 listing packages available for installation, their versions, installation
 candidates and so on. Useful for implementing facts describing packages
 existing in package repositories.
